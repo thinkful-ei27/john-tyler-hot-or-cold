@@ -13,6 +13,7 @@ export default class Game extends Component {
             secretGuess: Math.floor(Math.random()*100)+1,
             guesses: []
         }
+        this.onGuessChange = this.onGuessChange.bind(this);
         this.setGuess = this.setGuess.bind(this);
         this.startNewGame = this.startNewGame.bind(this);
     }
@@ -27,8 +28,13 @@ export default class Game extends Component {
         : fb('Cold as ice');
     }
 
-    setGuess(currentGuess) {
+    onGuessChange(currentGuess) {
         this.setState({currentGuess});
+    }
+
+    setGuess() {
+        const currentGuess = this.state.currentGuess;
+        // this.setState({currentGuess});
         this.giveFeedback(currentGuess);
         this.setState({guesses: [...this.state.guesses, currentGuess]})
     }
@@ -51,6 +57,7 @@ export default class Game extends Component {
             </header>
             <Feedback feedback={feedback}/>
             <Form 
+                onGuessChange={this.onGuessChange}
                 setGuess={this.setGuess}
             />
             <Count guesses={guesses}/>

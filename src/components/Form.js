@@ -1,24 +1,57 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-function Form(props) {
-  let inputValue;
-  const handleSubmit = e => {
-    e.preventDefault();
-    props.setGuess(inputValue.value);
+export default class Form extends Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
   }
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
+
+  handleChange(e) {
+    this.props.onGuessChange(e.target.value);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.setGuess();
+  }
+
+  render() {
+    return (
+      <form onSubmit={e => this.handleSubmit(e)}>
+        <label>
           Enter a guess: <br />
           <input 
-            type="text" 
-            ref={input => inputValue = input}
-            // onChange={}
+            type="text"
+            // value={this.props.currentGuess}
+            onChange={this.handleChange}
           />
-      </label>
-      <input type="submit" value="Submit"></input>
-    </form>
-  )
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    )
+  }
 }
 
-export default Form
+
+// function Form(props) {
+//   let inputValue;
+//   const handleSubmit = e => {
+//     e.preventDefault();
+//     props.setGuess(inputValue.value);
+//   }
+//   return (
+//     <form onSubmit={handleSubmit}>
+//       <label>
+//           Enter a guess: <br />
+//           <input 
+//             type="text" 
+//             ref={input => inputValue = input}
+//             // onChange={}
+//           />
+//       </label>
+//       <input type="submit" value="Submit"></input>
+//     </form>
+//   )
+// }
+
+// export default Form
