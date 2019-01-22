@@ -25,6 +25,7 @@ export default class Form extends Component {
             // value={this.props.currentGuess}
             onChange={this.handleChange}
           />
+          <div>{this.props.error}</div>
         </label>
         <input type="submit" value="Submit" />
       </form>
