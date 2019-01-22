@@ -9,11 +9,12 @@ export default class Game extends Component {
         super(props);
         this.state = {
             feedback: 'Make a guess!',
-            currentGuess: 50,
+            currentGuess: '',
             secretGuess: Math.floor(Math.random()*100)+1,
             guesses: []
         }
         this.setGuess = this.setGuess.bind(this);
+        this.startNewGame = this.startNewGame.bind(this);
     }
 
     giveFeedback(n) {
@@ -27,8 +28,18 @@ export default class Game extends Component {
     }
 
     setGuess(currentGuess) {
-        this.setState({currentGuess})
+        this.setState({currentGuess});
         this.giveFeedback(currentGuess);
+        this.setState({guesses: [...this.state.guesses, currentGuess]})
+    }
+
+    startNewGame() {
+        this.setState({
+            feedback: 'Make a guess!',
+            currentGuess: '',
+            secretGuess: Math.floor(Math.random()*100)+1,
+            guesses: []
+        });
     }
 
   render() {
@@ -44,7 +55,7 @@ export default class Game extends Component {
             />
             <Count guesses={guesses}/>
             <Guesses guesses={guesses}/>
-            <button>New Game?</button>
+            <button onClick={this.startNewGame}>New Game?</button>
         </main>
     )
   }
